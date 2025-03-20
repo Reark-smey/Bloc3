@@ -31,7 +31,7 @@
                         </div>
                     @endif
 
-                    @if (Session::get('id') >0)
+                    @if (Session::get('id') >0 and Session::get('type') == 'A')
                         <div class="collapse navbar-collapse" id="navbar-collapse-target">
                             <ul class="nav navbar-collapse navbar-nav navbar-left" id="navbar-collapse-target" >
                                 <li><a href="{{url('/getFraisVisiteur')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Lister</a></li>

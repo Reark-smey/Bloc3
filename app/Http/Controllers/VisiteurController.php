@@ -39,6 +39,12 @@ class VisiteurController extends Controller
                 } else {
                     return view('home');
                 }
+            }   elseif (Session::get('type') == 'A') {
+                    return view('vues/homeAdmin');
+
+            } elseif (Session::get('type') == 'C') {
+                return view('vues/homeCom');
+
             } else {
                 $erreur = "login ou mot de passe inconnu";
                 return view('vues/formLogin', compact('erreur'));
