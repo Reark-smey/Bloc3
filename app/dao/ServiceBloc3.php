@@ -68,22 +68,44 @@ class ServiceBloc3
             $activite_compl->save();
         }catch(QueryException $e){
             $erreur = $e->getMessage();
-            if(!isset($activite_compl->NomAdherent)) {
-                $erreur="Vous devez mettre un Nom";
+            if(!isset($activite_compl->date_activite)) {
+                $erreur="Vous devez mettre une Date pour l'acitité";
             }
-            else if(!isset($activite_compl->PrenomAdherent)) {
-                $erreur="Vous devez mettre un prénom";
+            else if(!isset($activite_compl->lieu_activite)) {
+                $erreur="Vous devez mettre un Lieu pour l'activité";
             }
-            else if(!isset($activite_compl->Adherent_username)) {
-                $erreur="Vous devez mettre un identifiant";
+            else if(!isset($activite_compl->theme_activite)) {
+                $erreur="Vous devez mettre un thème pour l'activité";
             }
-            else if(!isset($activite_compl->mdp_adherent)) {
-                $erreur="Vous devez mettre un mot de passe";
-            }
-            else if(!isset($activite_compl->type)) {
-                $erreur="Vous devez mettre un type";
+            else if(!isset($activite_compl->motif_activite)) {
+                $erreur="Vous devez mettre un motif pour l'activité";
             }
             throw new MonException($erreur, 5);
         }
     }
+
+    public function delActiviteComp($id) {
+        try {
+            activite_compl::destroy($id);
+        } catch (QueryException $e) {
+            throw new MonException($e->getMessage(), 5);
+        }
+    }
+    public function saveInviter(inviter $inviter){
+        try{
+
+            $inviter->save();
+        }catch(QueryException $e){
+            $erreur = $e->getMessage();
+            if(!isset($inviter->id_activite_compl)) {
+                $erreur="Vous devez mettre une activité";
+            }
+            else if(!isset($inviter->id_praticien)) {
+                $erreur="Vous devez mettre un praticien a invité";
+            }
+
+            throw new MonException($erreur, 5);
+        }
+    }
+
 }
