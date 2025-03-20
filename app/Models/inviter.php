@@ -1,46 +1,47 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inviter extends Model
+/**
+ * Class Inviter
+ * 
+ * @property int $id_activite_compl
+ * @property int $id_praticien
+ * @property string $specialiste
+ * 
+ * @property ActiviteCompl $activite_compl
+ * @property Praticien $praticien
+ *
+ * @package App\Models
+ */
+class Inviter extends Model
 {
-    use HasFactory;
+	protected $table = 'inviter';
+	public $incrementing = false;
+	public $timestamps = false;
 
-    protected $table='inviter';
+	protected $casts = [
+		'id_activite_compl' => 'int',
+		'id_praticien' => 'int'
+	];
 
-    protected $primary=['id_activite_compl','id_praticien'];
+	protected $fillable = [
+		'specialiste'
+	];
 
-    public $timestamps=false;
-    public int $id_HorsForfait;
+	public function activite_compl()
+	{
+		return $this->belongsTo(ActiviteCompl::class, 'id_activite_compl');
+	}
 
-    protected $keyType = 'int';
-
-    /**
-     * Surcharge de la méthode getKeyName pour gérer la clé primaire composée
-     */
-    public function getKeyName()
-    {
-        return $this->primaryKey;
-    }
-
-    public $incrementing = false;
-
-    /**
-     * Surcharge de la méthode getKey pour retourner la clé composée
-     */
-    public function getKey()
-    {
-        $keys = [];
-        foreach ($this->primaryKey as $key) {
-            $keys[] = $this->getAttribute($key);
-        }
-        return implode('-', $keys); // Concatène les clés avec un tiret (modifiable)
-    }
-
-
-
-
+	public function praticien()
+	{
+		return $this->belongsTo(Praticien::class, 'id_praticien');
+	}
 }
