@@ -12,7 +12,7 @@ use Mockery\Exception;
 
 class ServiceBloc3
 {
-    public function ListeVisiteurAll() {
+    public function getVisiteurAll() {
         try {
             $lesvisiteurs = DB::table('visiteur')
                 ->select('nom_visiteur', 'prenom_visiteur',
