@@ -36,6 +36,10 @@
                             <ul class="nav navbar-collapse navbar-nav navbar-left" id="navbar-collapse-target" >
                                 <li><a href="{{url('/getFraisVisiteur')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Lister</a></li>
                                 <li><a href="{{url('/ajouterFrais')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Ajouter</a></li>
+                                <li><a href="{{url('/listerVisiteurs')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Liste des visiteurs</a></li>
+                                <li><a href="{{url('/ChercherParNom')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche de visiteurs</a></li>
+                                <li><a href="{{url('/ListeLabo')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche par laboratoire</a></li>
+                                <li><a href="{{url('/Inviter')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Inviter un praticien</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{url('/getLogin')}}" data-toggle="collapse" data-target=".navbar-collapse.in" > ({{Session::get('login')}}) Se déconnecter</a> </li>

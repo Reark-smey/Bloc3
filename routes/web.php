@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bloc3Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +42,19 @@ Route::get('/addHorsForfait/{id}', 'App\Http\Controllers\HorsForfaitController@a
 Route::post('/validateHorsForfait/', 'App\Http\Controllers\HorsForfaitController@validateHorsForfait');
 
 Route::get('removeHorsForfait/{id}', 'App\Http\Controllers\HorsForfaitController@removeHorsForfait');
+
+
+Route::get('/listerVisiteurs', 'App\Http\Controllers\Bloc3Controller@listerVisiteurs')->name('listerVisiteurs');
+
+Route::get('/ChercherParNom', 'App\Http\Controllers\Bloc3Controller@visiteursByNom');
+Route::post('/validerRecherche', [\App\Http\Controllers\Bloc3Controller::class,'validerRecherche'])->name('validerRecherche');
+Route::get('/ListerVisiteurParNom/{nom}',[Bloc3Controller::class,'ListerVisiteurParNom'])->name('ListerVisiteurParNom');
+
+Route::get('/ListeLabo', 'App\Http\Controllers\Bloc3Controller@ListeLabo');
+Route::post('/validerRechercheLabo', [\App\Http\Controllers\Bloc3Controller::class,'validerRechercheLabo'])->name('validerRechercheLabo');
+Route::get('/ListerVisiteurParLabo/{id}',[Bloc3Controller::class,'ListerVisiteurParLabo'])->name('ListerVisiteurParLabo');
+
+
+Route::get('/Inviter', 'App\Http\Controllers\Bloc3Controller@Inviter');
+Route::post('/validerInviter', [\App\Http\Controllers\Bloc3Controller::class,'validerInviter'])->name('validerInviter');
+Route::get('/ListeInviter', 'App\Http\Controllers\Bloc3Controller@ListeInviter')->name('ListeInviter');

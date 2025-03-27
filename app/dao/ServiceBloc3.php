@@ -4,6 +4,7 @@ namespace App\dao;
 
 use App\Exceptions\MonException;
 use App\Models\activite_compl;
+use App\Models\Inviter;
 use App\Models\Laboratoire;
 use App\Models\Visiteur;
 use Illuminate\Database\QueryException;
@@ -16,10 +17,12 @@ class ServiceBloc3
         try {
             $lesvisiteurs = DB::table('visiteur')
                 ->select('nom_visiteur', 'prenom_visiteur',
-                    'visiteur.email', 'id_visiteur',
+                     'id_visiteur',
                 'id_laboratoire','id_secteur',
                 'adresse_visiteur','cp_visiteur',
                 'ville_visiteur','date_embauche')
+                ->where('nom_visiteur', '!=', 'Bloc3Admin')
+                ->where('nom_visiteur', '!=', 'Bloc3Com')
                 ->get();
             return $lesvisiteurs;
 
@@ -36,6 +39,25 @@ class ServiceBloc3
 
         }
     }
+    public function getVisiteurParNom($id) {
+        try {
+            $lesvisiteurs = DB::table('visiteur')
+                ->select('nom_visiteur', 'prenom_visiteur',
+                    'id_visiteur',
+                    'id_laboratoire','id_secteur',
+                    'adresse_visiteur','cp_visiteur',
+                    'ville_visiteur','date_embauche')
+                ->where('nom_visiteur','LIKE', $id.'%')
+                ->where('nom_visiteur', '!=', 'Bloc3Admin')
+                ->where('nom_visiteur', '!=', 'Bloc3Com')
+                ->get();
+            return $lesvisiteurs;
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            throw new MonException($e->getMessage(),5);
+        }
+    }
+
 
     public function ListerLaboAll() {
         try {
@@ -49,6 +71,24 @@ class ServiceBloc3
         } catch (QueryException $e) {
             throw new MonException($e->getMessage());
 
+        }
+    }
+    public function getVisiteurParLabo($id) {
+        try {
+            $lesvisiteurs = DB::table('visiteur')
+                ->select('nom_visiteur', 'prenom_visiteur',
+                    'id_visiteur',
+                    'id_laboratoire','id_secteur',
+                    'adresse_visiteur','cp_visiteur',
+                    'ville_visiteur','date_embauche')
+                ->where('id_laboratoire','=', $id)
+                ->where('nom_visiteur', '!=', 'Bloc3Admin')
+                ->where('nom_visiteur', '!=', 'Bloc3Com')
+                ->get();
+            return $lesvisiteurs;
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            throw new MonException($e->getMessage(),5);
         }
     }
 
