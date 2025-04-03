@@ -145,7 +145,7 @@ class ServiceBloc3
         }catch(QueryException $e){
             $erreur = $e->getMessage();
             if(!isset($activite_compl->date_activite)) {
-                $erreur="Vous devez mettre une Date pour l'acitité";
+                $erreur="Vous devez mettre une Date pour l'activité";
             }
             else if(!isset($activite_compl->lieu_activite)) {
                 $erreur="Vous devez mettre un Lieu pour l'activité";
@@ -183,6 +183,24 @@ class ServiceBloc3
             throw new MonException($erreur, 5);
         }
     }
+    public function saveRealiser(realiser $inviter){
+        try{
+
+            $inviter->save();
+        }catch(QueryException $e){
+            $erreur = $e->getMessage();
+            if(!isset($inviter->id_activite_compl)) {
+                $erreur="Vous devez mettre une activité";
+            }
+            else if(!isset($inviter->id_praticien)) {
+                $erreur="Vous devez mettre un praticien a invité";
+            }
+
+            throw new MonException($erreur, 5);
+        }
+    }
+
+
 
 
 
