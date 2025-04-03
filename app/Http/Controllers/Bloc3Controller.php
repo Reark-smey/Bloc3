@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\dao\ServiceBloc3;
 use App\Exceptions\MonException;
 use App\Models\Inviter;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\In;
 
 class Bloc3Controller
 {
@@ -113,26 +116,61 @@ class Bloc3Controller
         try {
 
             $title = "Inviter un praticien à une activité";
+            $invitation = $servicebloc->getAllActiviteComp();
+            $praticien = $servicebloc->getAllPraticien();
+            $inviter = new Inviter();
 
         } catch (MonException $e) {
             $erreur = $e->getMessage();
             return view('vues/error', compact('erreur'));
         }
-        return view('vues/FormInviter', compact( 'title'));
+        return view('vues/FormInviter', compact( 'title', 'invitation','praticien','inviter'));
     }
 
     public function validerInviter(Request $request)
 {
     try {
         $inviter = new Inviter();
+        $servicebloc = new ServiceBloc3();
 
-        $visiteur = $request->input('activite');
-        $visiteur = $request->input('praticien');
+        $inviter->id_activite_compl =  $request->input('activite');
+        $inviter->id_praticien = $request->input('praticien');
+        $inviter->specialiste = " ";
 
-        return redirect(route('ListerVisiteurParLabo', [$visiteur]));
+        $servicebloc->saveInviter($inviter);
+
+        return redirect(route('listerVisiteurs'));
     } catch (MonException $e) {
         $erreur = $e->getMessage();
         return view('vues/error', compact('erreur'));
     }
 }
+    public function InfoAdherents($id){
+        try {
+
+            $servicesbloc = new ServiceBloc3();
+            $lesAdherents = $servicesbloc->getVisiteurById($id);
+
+            return view('vues/InfoAdherents', compact( 'lesAdherents'));
+        } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function ProfilAdherents()
+    {
+
+        $erreur = Session::get('erreur');
+        Session::forget('erreur');
+        try {
+            $id = Session::get('id');
+            $servicebloc = new ServiceBloc3();
+            $lesAdherents = $servicebloc->getVisiteurById($id);
+            return view( '/vues/InfoAdherents' ,compact( 'lesAdherents', 'erreur'));
+        } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
 }

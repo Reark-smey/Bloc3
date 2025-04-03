@@ -10,14 +10,16 @@
             </div>
 
             {!!  Form::open(['route' => 'validerInviter']) !!}
+            <div class="col-md-12  col-sm-12 well well-md">
 
+                <div class="form-horizontal">
             <div class="form-group">
-                <label class="col-md-3 control-label">Golf:</label>
+                <label class="col-md-3 control-label">Activité:</label>
                 <div class="col-md-6">
                     <select class="form-control" name="activite">
                         <option value="0" disabled selected="selected"> Sélectionner une activité</option>
                         @foreach($invitation as $unInv)
-                            <option value="{{$unInv->id_activite_compl}}" > {{$unLab->theme_activite}} </option>
+                            <option value="{{$unInv->id_activite_compl}}" > {{$unInv->theme_activite}} </option>
 
                         @endforeach
                     </select>
@@ -25,15 +27,16 @@
                 </div>
             </div>
 
+
             <br>
 
             <div class="form-group">
-                <label class="col-md-3 control-label">Golf:</label>
+                <label class="col-md-3 control-label"> Praticien : </label>
                 <div class="col-md-6">
-                    <select class="form-control" name="praticien">
+                    <select class="form-control" name="praticien"  >
                         <option value="0" disabled selected="selected"> Sélectionner un praticien</option>
-                        @foreach($invitation as $unInv)
-                            <option value="{{$unInv->id_praticien}}" > {{$unInv->nom_praticien}} {{$unInv->prenom_praticien}} </option>
+                        @foreach($praticien as $unprat)
+                            <option value="{{$unprat->id_praticien}}"  > {{$unprat->nom_praticien}} {{$unprat->prenom_praticien}} </option>
 
                         @endforeach
                     </select>
@@ -56,8 +59,9 @@
             </div>
         </div>
 
+    </div>
 
-
+        </div>
     </div>
 
 

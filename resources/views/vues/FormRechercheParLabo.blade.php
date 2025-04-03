@@ -12,7 +12,7 @@
             {!!  Form::open(['route' => 'validerRechercheLabo']) !!}
 
             <div class="form-group">
-                <label class="col-md-3 control-label">Golf:</label>
+                <label class="col-md-3 control-label">Laboratoire :</label>
                 <div class="col-md-6">
                     <select class="form-control" name="laboratoire">
                         <option value="0" disabled selected="selected"> Sélectionner un Laboratoire</option>
@@ -24,6 +24,8 @@
 
                 </div>
             </div>
+
+            <br>
 
 
             <div class="form-group">
