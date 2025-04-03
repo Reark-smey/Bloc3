@@ -8,6 +8,7 @@ use App\Models\ActiviteCompl;
 use App\Models\Inviter;
 use App\Models\Laboratoire;
 use App\Models\Praticien;
+use App\Models\Realiser;
 use App\Models\Visiteur;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -183,23 +184,28 @@ class ServiceBloc3
             throw new MonException($erreur, 5);
         }
     }
-    public function saveRealiser(realiser $inviter){
+    public function saveRealiser(Realiser $realiser){
         try{
-
-            $inviter->save();
+            $realiser->save();
         }catch(QueryException $e){
             $erreur = $e->getMessage();
-            if(!isset($inviter->id_activite_compl)) {
+            if(!isset($realiser->id_activite_compl)) {
                 $erreur="Vous devez mettre une activité";
             }
-            else if(!isset($inviter->id_praticien)) {
+            else if(!isset($realiser->id_visiteur)) {
                 $erreur="Vous devez mettre un praticien a invité";
             }
 
             throw new MonException($erreur, 5);
         }
     }
-
+    public function delRealiser($id) {
+        try {
+            realiser::destroy($id);
+        } catch (QueryException $e) {
+            throw new MonException($e->getMessage(), 5);
+        }
+    }
 
 
 

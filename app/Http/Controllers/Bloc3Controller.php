@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\dao\ServiceBloc3;
 use App\Exceptions\MonException;
 use App\Models\Inviter;
+use App\Models\Realiser;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -169,6 +170,42 @@ class Bloc3Controller
             $lesAdherents = $servicebloc->getVisiteurById($id);
             return view( '/vues/InfoAdherents' ,compact( 'lesAdherents', 'erreur'));
         } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function Realiser()
+    {
+        $servicebloc = new ServiceBloc3();
+        try {
+
+            $title = "Ajouter une activité à un visiteur";
+            $activite = $servicebloc->getAllActiviteComp();
+            $visiteur = $servicebloc->getVisiteurAll();
+            $realiser = new Realiser();
+
+        } catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+        return view('vues/FormAjouterActivite', compact( 'title', 'realiser','visiteur','activite'));
+    }
+
+    public function validerrealiser(Request $request)
+    {
+        try {
+            $realiser = new Realiser();
+            $servicebloc = new ServiceBloc3();
+
+            $realiser->id_activite_compl =  $request->input('activite');
+            $realiser->id_visiteur = $request->input('visiteur');
+            $realiser->montant_ac = 0.00;
+
+            $servicebloc->saveRealiser($realiser);
+
+            return redirect(route('listerVisiteurs'));
+        } catch (MonException $e) {
             $erreur = $e->getMessage();
             return view('vues/error', compact('erreur'));
         }

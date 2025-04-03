@@ -61,3 +61,7 @@ Route::get('/ListeInviter', 'App\Http\Controllers\Bloc3Controller@ListeInviter')
 
 Route::get('/ProfilAdherents', [Bloc3Controller::class,'ProfilAdherents'])->name('ProfilAdherents');
 Route::get('/InfoAdherents/{id}', [Bloc3Controller::class,'InfoAdherents'])->name('InfoAdherents');
+
+
+Route::get('/Realiser/{id}', 'App\Http\Controllers\Bloc3Controller@Realiser');
+Route::post('/validerrealiser', [\App\Http\Controllers\Bloc3Controller::class,'validerrealiser'])->name('validerrealiser');

@@ -9,7 +9,7 @@
 
             </div>
 
-            {!!  Form::open(['route' => 'validerInviter']) !!}
+            {!!  Form::open(['route' => 'validerrealiser']) !!}
             <div class="col-md-12  col-sm-12 well well-md">
 
                 <div class="form-horizontal">
@@ -18,8 +18,8 @@
                         <div class="col-md-6">
                             <select class="form-control" name="activite">
                                 <option value="0" disabled selected="selected"> Sélectionner une activité</option>
-                                @foreach($invitation as $unInv)
-                                    <option value="{{$unInv->id_activite_compl}}" > {{$unInv->theme_activite}} </option>
+                                @foreach($activite as $unAct)
+                                    <option value="{{$unAct->id_activite_compl}}" > {{$unAct->theme_activite}} </option>
 
                                 @endforeach
                             </select>
@@ -33,10 +33,10 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label"> Visiteur : </label>
                         <div class="col-md-6">
-                            <select class="form-control" name="praticien"  >
-                                <option value="0" disabled selected="selected"> Sélectionner un praticien</option>
-                                @foreach($praticien as $unprat)
-                                    <option value="{{$unprat->id_praticien}}"  > {{$unprat->nom_praticien}} {{$unprat->prenom_praticien}} </option>
+                            <select class="form-control" name="visiteur"  >
+                                <option value="0" disabled selected="selected"> Sélectionner un visiteur</option>
+                                @foreach($visiteur as $unVis)
+                                    <option value="{{$unVis->id_visiteur}}"  > {{$unVis->nom_visiteur}} {{$unVis->prenom_visiteur}} </option>
 
                                 @endforeach
                             </select>

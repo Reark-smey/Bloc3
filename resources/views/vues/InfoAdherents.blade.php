@@ -59,7 +59,7 @@
 
 
                     <td style="text-align:center;">
-                        <a href="{{url('/AjouterActivite')}}/{{$unAdh->id_visiteur}}">
+                        <a href="{{url('/Realiser')}}/{{$unAdh->id_visiteur}}">
                             <span class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Ajouter une activité">
 
                             </span>
