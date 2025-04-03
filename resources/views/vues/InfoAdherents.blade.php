@@ -29,7 +29,9 @@
                     <td>{{$unAdh->prenom_visiteur}}</td>
                     <td>{{$unAdh->adresse_visiteur}}</td>
                     <td>{{$unAdh->cp_visiteur}}</td>
+
                     <td>{{$unAdh->ville_visiteur}}</td>
+                    <td>{{$unAdh->date_embauche}}</td>
 
                     <td>
                             <?php
@@ -46,16 +48,27 @@
                                 case 'P':
                                     echo "Praticien";
                                     break;
+                                case 'G':
+                                    echo "Garde";
+                                    break;
                             }
                         ?>
                     </td>
-                      <td>  {{$unAdh->type_visiteur}}</td>
+
 
 
 
                     <td style="text-align:center;">
-                        <a href="{{url('/modifierAdherent')}}/{{$unAdh->IdAdherent}}">
-                            <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Modifier">
+                        <a href="{{url('/AjouterActivite')}}/{{$unAdh->id_visiteur}}">
+                            <span class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Ajouter une activité">
+
+                            </span>
+                        </a>
+                    </td>
+
+                    <td style="text-align:center;">
+                        <a href="{{url('/InfoAdherents')}}/{{$unAdh->id_visiteur}}">
+                            <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir profil">
 
                             </span>
                         </a>

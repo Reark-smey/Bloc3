@@ -43,7 +43,7 @@
                     </td>
 
                     <td style="text-align:center;">
-                        <a href="{{url('/ProfilMembre')}}/{{$unVis->id_visiteur}}">
+                        <a href="{{url('/InfoAdherents')}}/{{$unVis->id_visiteur}}">
                             <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir profil">
 
                             </span>

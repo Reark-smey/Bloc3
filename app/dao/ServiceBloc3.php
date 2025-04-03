@@ -41,8 +41,7 @@ class ServiceBloc3
                     'id_laboratoire','id_secteur',
                     'adresse_visiteur','cp_visiteur',
                     'ville_visiteur','date_embauche','type_visiteur')
-                ->where('nom_visiteur', '!=', 'Bloc3Admin')
-                ->where('nom_visiteur', '!=', 'Bloc3Com')
+                ->where('id_visiteur', '=', $id)
                 ->get();
             return $lesvisiteurs;
 

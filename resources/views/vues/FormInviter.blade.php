@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label"> Praticien : </label>
                 <div class="col-md-6">
-                    <select class="form-control" name="praticien"  >
+                    <select class="form-control" name="praticien" size="10" >
                         <option value="0" disabled selected="selected"> Sélectionner un praticien</option>
                         @foreach($praticien as $unprat)
                             <option value="{{$unprat->id_praticien}}"  > {{$unprat->nom_praticien}} {{$unprat->prenom_praticien}} </option>
