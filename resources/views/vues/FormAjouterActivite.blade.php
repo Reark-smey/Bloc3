@@ -34,9 +34,8 @@
                         <label class="col-md-3 control-label"> Visiteur : </label>
                         <div class="col-md-6">
                             <select class="form-control" name="visiteur"  >
-                                <option value="0" disabled selected="selected"> Sélectionner un visiteur</option>
                                 @foreach($visiteur as $unVis)
-                                    <option value="{{$unVis->id_visiteur}}"  > {{$unVis->nom_visiteur}} {{$unVis->prenom_visiteur}} </option>
+                                    <option value="{{$unVis->id_visiteur}}"  selected="selected"> {{$unVis->nom_visiteur}} {{$unVis->prenom_visiteur}} </option>
 
                                 @endforeach
                             </select>

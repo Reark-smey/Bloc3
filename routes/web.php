@@ -65,3 +65,15 @@ Route::get('/InfoAdherents/{id}', [Bloc3Controller::class,'InfoAdherents'])->nam
 
 Route::get('/Realiser/{id}', 'App\Http\Controllers\Bloc3Controller@Realiser');
 Route::post('/validerrealiser', [\App\Http\Controllers\Bloc3Controller::class,'validerrealiser'])->name('validerrealiser');
+
+Route::get('ListerActivites/{id}',[Bloc3Controller::class,'ListerActiviteComplByAdherent'])->name('ListerActivites');
+Route::get('supprimeractivite/{id}', [Bloc3Controller::class, 'supprimeractivite'])->name('supprimeractivite');
+
+Route::get('/ListeSecteur', 'App\Http\Controllers\Bloc3Controller@ListeSecteur');
+Route::post('/validerRechercheSecteur', [\App\Http\Controllers\Bloc3Controller::class,'validerRechercheSecteur'])->name('validerRechercheSecteur');
+Route::get('/ListerVisiteurParSecteur/{id}',[Bloc3Controller::class,'ListerVisiteurParSecteur'])->name('ListerVisiteurParSecteur');
+
+
+Route::post('/validerAdherent', [Bloc3Controller::class,'validerAdherent'])->name('validerAdherent');
+
+Route::get('/modifierAdherent/{id}', [Bloc3Controller::class,'modifierAdherent'])->name('modifierAdherent');

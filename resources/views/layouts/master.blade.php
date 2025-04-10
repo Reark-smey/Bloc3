@@ -41,6 +41,7 @@
                                 <li><a href="{{url('/listerVisiteurs')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Liste des visiteurs</a></li>
                                 <li><a href="{{url('/ChercherParNom')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche de visiteurs</a></li>
                                 <li><a href="{{url('/ListeLabo')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche par laboratoire</a></li>
+                                <li><a href="{{url('/ListeSecteur')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche par secteur</a></li>
                                 <li><a href="{{url('/Inviter')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Inviter un praticien</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">

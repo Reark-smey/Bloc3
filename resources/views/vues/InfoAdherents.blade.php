@@ -29,7 +29,6 @@
                     <td>{{$unAdh->prenom_visiteur}}</td>
                     <td>{{$unAdh->adresse_visiteur}}</td>
                     <td>{{$unAdh->cp_visiteur}}</td>
-
                     <td>{{$unAdh->ville_visiteur}}</td>
                     <td>{{$unAdh->date_embauche}}</td>
 
@@ -67,13 +66,20 @@
                     </td>
 
                     <td style="text-align:center;">
-                        <a href="{{url('/InfoAdherents')}}/{{$unAdh->id_visiteur}}">
-                            <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir profil">
+                        <a href="{{url('/ListerActivites')}}/{{$unAdh->id_visiteur}}">
+                            <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir les activités">
 
                             </span>
                         </a>
                     </td>
 
+                    <td style="text-align:center;">
+                        <a href="{{url('/modifierAdherent')}}/{{$unAdh->id_visiteur}}">
+                            <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Modifier Adhérent">
+
+                            </span>
+                        </a>
+                    </td>
 
                 </tr>
             @endforeach

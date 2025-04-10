@@ -6,6 +6,7 @@ use App\dao\ServiceBloc3;
 use App\Exceptions\MonException;
 use App\Models\Inviter;
 use App\Models\Realiser;
+use App\Models\Visiteur;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -175,14 +176,14 @@ class Bloc3Controller
         }
     }
 
-    public function Realiser()
+    public function Realiser($id)
     {
         $servicebloc = new ServiceBloc3();
         try {
 
             $title = "Ajouter une activité à un visiteur";
             $activite = $servicebloc->getAllActiviteComp();
-            $visiteur = $servicebloc->getVisiteurAll();
+            $visiteur = $servicebloc->getVisiteurById($id);
             $realiser = new Realiser();
 
         } catch (MonException $e) {
@@ -204,10 +205,119 @@ class Bloc3Controller
 
             $servicebloc->saveRealiser($realiser);
 
-            return redirect(route('listerVisiteurs'));
+            return redirect(route('ProfilAdherents'));
         } catch (MonException $e) {
             $erreur = $e->getMessage();
             return view('vues/error', compact('erreur'));
         }
     }
+
+    public function ListerActiviteComplByAdherent($id)
+    {
+        try {
+            $serviceBloc = new ServiceBloc3();
+
+            $activite = $serviceBloc->GetActiviteByAdherent($id);
+
+            $title = "Liste des activités complémentaires";
+
+            return view('vues/ActiviteParAdherent', compact('title','activite'));
+        } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function supprimeractivite($id)
+    {
+        $servicebloc = new ServiceBloc3();
+        $servicebloc->delRealiser($id);
+        return redirect('ProfilAdherents');
+    }
+
+    public function ListeSecteur()
+    {
+        try {
+            $title ='Rechercher par Secteur';
+            $servicebloc = new ServiceBloc3();
+            $secteur = $servicebloc->ListerSecteurAll();
+
+            return view('vues/VisiteurParSecteur', compact('secteur','title'));
+        } catch (
+        MonException $e
+        ) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function validerRechercheSecteur(Request $request)
+    {
+        try {
+            $visiteur = $request->input('secteur');
+
+            return redirect(route('ListerVisiteurParSecteur', [$visiteur]));
+        } catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function ListerVisiteurParSecteur($id)
+    {
+        try {
+            $serviceVisiteur = new ServiceBloc3();
+            $lesvisiteurs = $serviceVisiteur->getVisiteurParSecteur($id);
+            $title =" Liste des Secteurs";
+
+
+            return view('vues/ListeVisiteurs', compact('lesvisiteurs','title'));
+
+        }catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
+    public function validerAdherent(Request $request)
+    {
+        try {
+            $servicebloc = new ServiceBloc3();
+            $id_adherent = $request->input('hid_id');
+            if ($id_adherent == 0) {
+                $adherent = new Visiteur();
+            } else {
+                $adherent = $servicebloc->getAdherent($id_adherent);
+            }
+            $adherent->nom_visiteur = $request->input('nom');
+            $adherent->prenom_visiteur = $request->input('prenom');
+            $adherent->id_laboratoire = $request->input('laboratoire');
+            $adherent->id_secteur = $request->input('secteur');
+            $adherent->adresse_visiteur = $request->input('adresse_visiteur');
+
+            $adherent->cp_visiteur = $request->input('cp_visiteur');
+            $adherent->ville_visiteur = $request->input('ville_visiteur');
+
+            $servicebloc->saveVisiteur($adherent);
+            return redirect('ProfilAdherents');
+
+        } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+    public function modifierAdherent($id)
+    {
+        try {
+            $title = "Modifer les informations";
+            $servicebloc = new ServiceBloc3();
+            $adherent = $servicebloc->getAdherent($id);
+
+            return view('vues/FormModifierVisiteur', compact('title', 'adherent'));
+        } catch (Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+
 }

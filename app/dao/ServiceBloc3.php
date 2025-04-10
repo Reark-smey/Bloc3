@@ -133,7 +133,7 @@ class ServiceBloc3
     public function getAllPraticien()
     {
         try {
-            return Praticien::all();
+            return Praticien::all()->sortBy('nom_praticien');
         } catch (\Illuminate\Database\QueryException $e) {
             throw new MonException($e->getMessage());
         }
@@ -163,7 +163,7 @@ class ServiceBloc3
 
     public function delActiviteComp($id) {
         try {
-            activite_compl::destroy($id);
+            realiser::destroy($id);
         } catch (QueryException $e) {
             throw new MonException($e->getMessage(), 5);
         }
@@ -201,13 +201,97 @@ class ServiceBloc3
     }
     public function delRealiser($id) {
         try {
-            realiser::destroy($id);
+            DB::table('realiser')
+                ->where('id_activite_compl', '=', $id)
+                ->delete();
+
         } catch (QueryException $e) {
             throw new MonException($e->getMessage(), 5);
         }
     }
 
+public function GetActiviteByAdherent($id)
+{
+    try {
+        $activite = DB::table('activite_compl')
+            ->select(
+                'activite_compl.id_activite_compl',
+                'activite_compl.date_activite',
+                'activite_compl.lieu_activite',
+                'activite_compl.theme_activite',
+                'motif_activite',
+            )
+            ->join('realiser','activite_compl.id_activite_compl','=','realiser.id_activite_compl')
+            ->join('visiteur','realiser.id_visiteur','=','visiteur.id_visiteur')
+            ->where('visiteur.id_visiteur','=',$id)
+            ->orderBy('date_activite')
+            ->get();
 
+        return $activite;
 
+    } catch ( QueryException $e) {
+        throw new MonException($e->getMessage());
+    }
+}
+
+    public function ListerSecteurAll() {
+        try {
+            $lessecteurs = DB::table('secteur')
+                ->select(
+                    'id_secteur','lib_secteur'
+                    )
+                ->get();
+            return $lessecteurs;
+
+        } catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+
+        }
+    }
+    public function getVisiteurParSecteur($id) {
+        try {
+            $lesvisiteurs = DB::table('visiteur')
+                ->select('nom_visiteur', 'prenom_visiteur',
+                    'id_visiteur','adresse_visiteur','cp_visiteur','ville_visiteur',
+                    'date_embauche',
+                    'id_secteur'
+                    )
+                ->where('id_secteur','=', $id)
+                ->where('nom_visiteur', '!=', 'Bloc3Admin')
+                ->where('nom_visiteur', '!=', 'Bloc3Com')
+                ->get();
+            return $lesvisiteurs;
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            throw new MonException($e->getMessage(),5);
+        }
+    }
+
+    public function saveVisiteur(Visiteur $visiteur){
+        try{
+            $visiteur->save();
+        }catch(QueryException $e){
+            $erreur = $e->getMessage();
+            throw new MonException($erreur, 5);
+        }
+    }
+
+    public function getAdherent($id)
+    {
+        try {
+            $visiteur = DB::table('visiteur')
+                ->select('nom_visiteur', 'prenom_visiteur',
+                'id_visiteur','adresse_visiteur',
+                'cp_visiteur','ville_visiteur','visiteur.id_secteur',
+                    'visiteur.id_laboratoire'
+                )
+                ->where('id_visiteur','=', $id)
+            ->first();
+
+            return \App\Models\Visiteur::find($id);
+        } catch(QueryException $e) {
+            throw new MonException($e->getMessage(), 5);
+        }
+    }
 
 }
