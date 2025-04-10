@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\dao\ServiceBloc3;
 use App\Exceptions\MonException;
+use App\Models\activite_compl;
 use App\Models\Inviter;
 use App\Models\Realiser;
 use App\Models\Visiteur;
@@ -320,4 +321,34 @@ class Bloc3Controller
         }
     }
 
+    public function AddActivite()
+    {
+        try {
+            $title ="Ajouter une activité";
+            $activite = new activite_compl();
+
+            return view('vues/FormAddActivite', compact('title', 'activite'));
+
+        } catch(Exception $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+    }
+public function validerAddActivite(Request $request) {
+        try {
+            $servicebloc = new ServiceBloc3();
+            $activite = new activite_compl();
+
+            $activite->date_activite = $request->input('date');
+            $activite->lieu_activite = $request->input('lieu');
+            $activite->theme_activite = $request->input('theme');
+            $activite->motif_activite = $request->input('motif');
+
+            $servicebloc->saveActiviteComp($activite);
+            return redirect('ProfilAdherents');
+        }catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues/error', compact('erreur'));
+        }
+}
 }

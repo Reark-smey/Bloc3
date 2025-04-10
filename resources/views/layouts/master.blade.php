@@ -43,6 +43,7 @@
                                 <li><a href="{{url('/ListeLabo')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche par laboratoire</a></li>
                                 <li><a href="{{url('/ListeSecteur')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Recherche par secteur</a></li>
                                 <li><a href="{{url('/Inviter')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Inviter un praticien</a></li>
+                                <li><a href="{{url('/AddActivite')}}" data-toggle="collapse" data-target=".navbar-collapse.in">Ajouter une activité</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{url('/getLogin')}}" data-toggle="collapse" data-target=".navbar-collapse.in" > ({{Session::get('login')}}) Se déconnecter</a> </li>
